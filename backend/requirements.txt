@@ -1,5 +1,6 @@
 asgiref==3.8.1
 Django==5.1.4
+django-cors-headers==4.6.0
 django-quill-editor==0.1.42
 Faker==33.1.0
 graphene==3.4.3
