@@ -8,6 +8,19 @@
 
 ## Get started
 
+```bash
+python -m venv ~/.virtualenvs/djangovue
+
+```bash
+source ~/.virtualenvs/djangovue/bin/activate
+
+```bash
+cd backend
+
+```bash
+python manage.py runserver
+
+
 ### Setup
 
 ```bash
