@@ -19,3 +19,24 @@ export const GET_ARTICLES = gql`
     }
   }
 `;
+
+
+export const GET_ARTICLE_BY_SLUG = gql`
+query GetArticleBySlug($slug: String!) {
+  articleBySlug(slug: $slug) {
+    id
+    title
+    content
+    createdAt
+    slug
+    category {
+      id
+      name
+    }
+    tags {
+      id
+      name
+    }
+  }
+}
+`;

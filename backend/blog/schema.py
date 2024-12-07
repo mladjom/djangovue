@@ -56,10 +56,12 @@ class Query(graphene.ObjectType):
         return Article.objects.all()  # You can apply filters here if needed
 
     def resolve_article_by_slug(root, info, slug):
+        print(f"Received slug: {slug}")  # Debugging
         try:
+            # Fetch the article based on the slug
             return Article.objects.get(slug=slug)
         except Article.DoesNotExist:
-            return None
+            return None  # Return None if article with slug doesn't exist
 
 
 # Define the schema

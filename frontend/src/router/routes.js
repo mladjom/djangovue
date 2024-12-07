@@ -2,6 +2,7 @@ import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import HomeView from "@/views/HomeView.vue";
 import AboutView from "@/views/AboutView.vue";
 import ContactView from "@/views/ContactView.vue";
+import ArticleView from "@/views/ArticleView.vue"; // Import the single article view
 
 export const routes = [
   {
@@ -38,7 +39,12 @@ export const routes = [
           description: "Contact description the DjangoVue blog platform.",
           //breadcrumb: "Contact"
         },
-
+       },
+       {
+        path: "articles/:slug", // Dynamic route for single articles
+        name: "article",
+        component: ArticleView,
+        meta: { title: "Article", breadcrumb: "Article" },
       },
     ],
   },

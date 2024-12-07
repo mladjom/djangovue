@@ -6,7 +6,7 @@
 
 
 
-## Get started
+### Setup
 
 ```bash
 python -m venv ~/.virtualenvs/djangovue
@@ -18,32 +18,37 @@ source ~/.virtualenvs/djangovue/bin/activate
 cd backend
 
 ```bash
-python manage.py runserver
 
 
-### Setup
+```bash
 
 ```bash
 # Install Python dependencies
 pip -r requirements.txt
 
-# Create sqlite3 database and apply migrations
-./manage.py migrate
+```bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py seed_data
+
+```bash
+# Run development server
+python manage.py runserver
+
+
+
+```bash
+# Usefull commands
+
+
+
 
 # Install Vue dependencies
 cd frontend
 npm install
 cd ..
 
-# Create an admin account
-./manage.py createsuperuser
-```
-
-### Run 
-
-```bash
-# Run development server
-./manage.py runserver
 
 # Run frontend in dev mode
 cd frontend
@@ -56,8 +61,3 @@ npm serve
 # Build frontend
 cd frontend 
 npm build
-
-# Collect static files
-cd ..
-./manage.py collectstatic
-```

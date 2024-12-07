@@ -17,6 +17,12 @@ router.beforeEach((to, from, next) => {
 
   // Update meta description
   updateMeta(to.meta.description || "Default description for DjangoVue Blog.");
+
+  // Handle dynamic breadcrumbs for articles
+  if (to.name === "article" && to.params.slug) {
+    to.meta.breadcrumb = to.params.slug.replace(/-/g, " ").toUpperCase(); // Example conversion
+  }
+
   next();
 });
 

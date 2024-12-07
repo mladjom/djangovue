@@ -33,7 +33,7 @@ class Tag(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
-    content = QuillField()
+    content = models.TextField()
     slug = models.SlugField(max_length=255, unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='articles')
     tags = models.ManyToManyField(Tag, related_name='articles')
@@ -42,10 +42,10 @@ class Article(models.Model):
     created_at = models.DateTimeField(default=now)
     modified_at = models.DateTimeField(auto_now=True)
 
-    def clean(self):
-        from django.core.exceptions import ValidationError
-        if not isinstance(self.content, dict) or "delta" not in self.content:
-            raise ValidationError("Content must be a valid Quill JSON object with a 'delta' key.")
+    # def clean(self):
+    #     from django.core.exceptions import ValidationError
+    #     if not isinstance(self.content, dict) or "delta" not in self.content:
+    #         raise ValidationError("Content must be a valid Quill JSON object with a 'delta' key.")
 
     def save(self, *args, **kwargs):
         if not self.slug:

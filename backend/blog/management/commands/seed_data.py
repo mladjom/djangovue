@@ -39,14 +39,7 @@ class Command(BaseCommand):
         for _ in range(20):  # Create 20 articles
             article = Article.objects.create(
                 title=fake.sentence(),
-                # content={
-                #     "delta": {  # Ensures QuillField is properly formatted
-                #         "ops": [
-                #             {"insert": "International only heart write vote let...\n"}
-                #             ]
-                #         }
-                #     },
-                # slug=fake.unique.slug(),
+                content=fake.paragraph(nb_sentences=10),
                 category=random.choice(categories),
                 is_published=random.choice([True, False]),
                 is_featured=random.choice([True, False]),
