@@ -28,24 +28,45 @@
 
 <script>
 import { useQuery } from "@vue/apollo-composable";
-import { computed } from "vue";
-import { useRoute } from "vue-router";
+import { computed, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { GET_ARTICLE_BY_SLUG } from "@/graphql/queries";
 
 export default {
   name: "ArticleView",
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const slug = route.params.slug;
 
+    // Query the article by slug
     const { result, loading, error } = useQuery(GET_ARTICLE_BY_SLUG, { slug });
 
-    const article = computed(() => result.value?.articleBySlug); // Correct data path
+    const article = computed(() => result.value?.articleBySlug); // Access article data
+
     const formattedDate = computed(() =>
       article.value?.createdAt
         ? new Date(article.value.createdAt).toLocaleDateString()
         : "Unknown"
     );
+
+// Watch article changes and update breadcrumb dynamically
+// watch(article, (newArticle) => {
+//       if (newArticle?.title) {
+//         router.currentRoute.value.meta.breadcrumb = newArticle.title; // Update breadcrumb
+//         document.title = `${newArticle.title} - DjangoVue Blog`; // Update title
+//       }
+//     });
+
+
+    // Watch article and set page title
+    watch(article, (newArticle) => {
+      if (newArticle?.title) {
+        document.title = `${newArticle.title} - DjangoVue Blog`; // Set the page title dynamically
+        // Update breadcrumb dynamically when article data is loaded
+        router.currentRoute.value.meta.breadcrumb = newArticle.title; // Update breadcrumb meta
+      }
+    });
 
     return { article, formattedDate, loading, error };
   },
