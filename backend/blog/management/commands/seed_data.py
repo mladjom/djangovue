@@ -19,7 +19,7 @@ class Command(BaseCommand):
             category = Category.objects.create(
                 name=fake.unique.word().capitalize(),
                 description=fake.sentence(),
-                slug=fake.unique.slug()
+                #slug=fake.unique.slug()
             )
             categories.append(category)
 
@@ -30,7 +30,7 @@ class Command(BaseCommand):
             tag = Tag.objects.create(
                 name=fake.unique.word().capitalize(),
                 description=fake.sentence(),
-                slug=fake.unique.slug()
+                #slug=fake.unique.slug()
             )
             tags.append(tag)
 

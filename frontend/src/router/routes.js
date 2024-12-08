@@ -1,8 +1,10 @@
+// src/router/routes.js
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import HomeView from "@/views/HomeView.vue";
 import AboutView from "@/views/AboutView.vue";
 import ContactView from "@/views/ContactView.vue";
 import ArticleView from "@/views/ArticleView.vue"; // Import the single article view
+import CategoriesView from "@/views/CategoriesView.vue";
 
 export const routes = [
   {
@@ -18,6 +20,14 @@ export const routes = [
           description: "Home description of the DjangoVue blog platform.",
         },
 
+      },
+      {
+        path: "/categories",
+        name: "categories",
+        component: CategoriesView,
+        meta: { breadcrumb: "Categories", title: "Categories",
+          description: "Description Categories"
+         },
       },
       {
         path: "about",

@@ -50,15 +50,6 @@ export default {
         : "Unknown"
     );
 
-// Watch article changes and update breadcrumb dynamically
-// watch(article, (newArticle) => {
-//       if (newArticle?.title) {
-//         router.currentRoute.value.meta.breadcrumb = newArticle.title; // Update breadcrumb
-//         document.title = `${newArticle.title} - DjangoVue Blog`; // Update title
-//       }
-//     });
-
-
     // Watch article and set page title
     watch(article, (newArticle) => {
       if (newArticle?.title) {

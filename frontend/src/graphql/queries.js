@@ -1,4 +1,3 @@
-// src/graphql/queries.js
 import { gql } from "graphql-tag";
 
 export const GET_ARTICLES = gql`
@@ -20,23 +19,32 @@ export const GET_ARTICLES = gql`
   }
 `;
 
-
 export const GET_ARTICLE_BY_SLUG = gql`
-query GetArticleBySlug($slug: String!) {
-  articleBySlug(slug: $slug) {
-    id
-    title
-    content
-    createdAt
-    slug
-    category {
+  query GetArticleBySlug($slug: String!) {
+    articleBySlug(slug: $slug) {
       id
-      name
-    }
-    tags {
-      id
-      name
+      title
+      content
+      createdAt
+      slug
+      category {
+        id
+        name
+      }
+      tags {
+        id
+        name
+      }
     }
   }
-}
+`;
+
+export const GET_CATEGORIES = gql`
+  query GetCategories {
+    allCategories {
+      id
+      name
+      slug
+    }
+  }
 `;

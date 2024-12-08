@@ -25,7 +25,8 @@ export default {
   name: "ArticlesList",
   components: { ArticleCard },
   setup() {
-    const { result, loading, error, fetchMore } = useQuery(GET_ARTICLES, {
+    const { result, loading, error, fetchMore } = 
+    useQuery(GET_ARTICLES, {
       first: 6,
       after: "",
     });
