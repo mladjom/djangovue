@@ -16,7 +16,7 @@
   </template>
   
   <script setup>
-  import Header from "@/components/Header.vue";
-  import Breadcrumbs from "@/components/Breadcrumbs.vue";
-  import Footer from "@/components/Footer.vue";
+  import Header from "@/components/common/Header.vue";
+  import Breadcrumbs from "@/components/common/Breadcrumbs.vue";
+  import Footer from "@/components/common/Footer.vue";
   </script>

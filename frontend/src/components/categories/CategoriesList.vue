@@ -10,7 +10,7 @@
   </template>
   
   <script>
-  import CategoryCard from "@/components/CategoryCard.vue"; // Import CategoryCard component
+  import CategoryCard from "@/components/categories/CategoryCard.vue"; // Import CategoryCard component
   import useCategories from "@/composables/useCategories"; // Import the useCategories composable
   
   export default {

@@ -12,10 +12,10 @@
       <nav class="hidden lg:block">
         <ul class="flex space-x-8 text-lg">
           <li>
-            <router-link to="/" class="hover:text-gray-400">home</router-link>
+            <router-link to="/blog" class="hover:text-gray-400">blog</router-link>
           </li>
           <li><router-link to="/categories" class="hover:text-gray-400">
-            Categories</router-link></li>
+            categories</router-link></li>
           <li>
             <router-link to="/about" class="hover:text-gray-400">about</router-link>
           </li>

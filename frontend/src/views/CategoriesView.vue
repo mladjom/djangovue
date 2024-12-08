@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import CategoriesList from "@/components/CategoriesList.vue"; // Import CategoriesList component
+import CategoriesList from "@/components/categories/CategoriesList.vue"; // Import CategoriesList component
 
 export default {
   name: "CategoriesView",

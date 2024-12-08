@@ -16,23 +16,15 @@
 </template>
 
 <script>
-import { useQuery } from "@vue/apollo-composable";
-import { GET_ARTICLES } from "@/graphql/queries";
-import usePagination from "@/composables/usePagination";
-import ArticleCard from "@/components/ArticleCard.vue";
+import ArticleCard from "@/components/articles/ArticleCard.vue";
+import useArticles from "@/composables/useArticles";
 
 export default {
   name: "ArticlesList",
   components: { ArticleCard },
   setup() {
-    const { result, loading, error, fetchMore } = 
-    useQuery(GET_ARTICLES, {
-      first: 6,
-      after: "",
-    });
-
-    // Use the pagination composable
-    const { items: articles, hasNextPage, loadMore } = usePagination(result, fetchMore);
+    // Use the composable for articles logic
+    const { articles, loading, error, loadMore, hasNextPage } = useArticles();
 
     return { articles, loading, error, loadMore, hasNextPage };
   },

@@ -2,6 +2,7 @@
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import HomeView from "@/views/HomeView.vue";
 import AboutView from "@/views/AboutView.vue";
+import BlogView from "@/views/BlogView.vue";
 import ContactView from "@/views/ContactView.vue";
 import ArticleView from "@/views/ArticleView.vue"; // Import the single article view
 import CategoriesView from "@/views/CategoriesView.vue";
@@ -13,7 +14,7 @@ export const routes = [
     children: [
       {
         path: "",
-        //name: "home",
+        name: "home",
         component: HomeView,
         meta: {
           title: "Home - DjangoVue Blog",
@@ -38,7 +39,16 @@ export const routes = [
           description: "Learn more about the DjangoVue blog platform and our team.",
           breadcrumb: "About Us"
         },
-
+      },
+      {
+        path: "blog",
+        name: "blog",
+        component: BlogView,
+        meta: {
+          title: "Blog - DjangoVue Blog",
+          description: "Blog Desc",
+          breadcrumb: "Blog"
+        },
       },
       {
         path: "contact",
