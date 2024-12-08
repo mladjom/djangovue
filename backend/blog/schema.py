@@ -43,6 +43,12 @@ class Query(graphene.ObjectType):
     all_categories = graphene.List(CategoryType)
     all_tags = graphene.List(TagType)
     all_articles = ConnectionField(ArticleConnection)  # Using ConnectionField for pagination
+    # all_articles = graphene.List(
+    #     ArticleType,
+    #     first=graphene.Int(),
+    #     skip=graphene.Int(),
+    # )
+    
     article_by_slug = graphene.Field(ArticleType, slug=graphene.String(required=True))
 
     # Resolvers
@@ -53,7 +59,8 @@ class Query(graphene.ObjectType):
         return Tag.objects.all()
 
     def resolve_all_articles(self, info, **kwargs):
-        return Article.objects.all()  # You can apply filters here if needed
+        return  Article.objects.filter(is_published=True)  # Only fetch published articles
+
 
     def resolve_article_by_slug(root, info, slug):
         print(f"Received slug: {slug}")  # Debugging
