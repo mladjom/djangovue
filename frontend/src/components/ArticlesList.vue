@@ -16,10 +16,9 @@
 </template>
 
 <script>
-import { ref, watch, computed } from "vue";
 import { useQuery } from "@vue/apollo-composable";
 import { GET_ARTICLES } from "@/graphql/queries";
-import { usePagination } from "@/composables/usePagination";
+import usePagination from "@/composables/usePagination";
 import ArticleCard from "@/components/ArticleCard.vue";
 
 export default {
@@ -31,61 +30,10 @@ export default {
       after: "",
     });
 
-    // Reactive state
-    const articles = ref([]);
-    const hasNextPage = ref(false);
-    const endCursor = ref("");
-
-    // Watch the result and update state
-    watch(
-      result,
-      (newResult) => {
-        if (newResult?.allArticles) {
-          const { edges, pageInfo } = newResult.allArticles;
-
-        // Append fetched articles
-        articles.value = [...articles.value, ...edges.map((edge) => edge.node)]
-
-          // Update pagination state
-          hasNextPage.value = pageInfo.hasNextPage;
-          endCursor.value = pageInfo.endCursor;
-        }
-      },
-      { immediate: true }
-    );
-
-
-    const loadMore = async () => {
-      if (hasNextPage.value) {
-        try {
-          const { data } = await fetchMore({
-            variables: {
-              first: 6,
-              after: endCursor.value, // Use the updated cursor
-            },
-          });
-
-          if (data?.allArticles?.edges) {
-            // Append new articles to the list
-            articles.value = [
-              ...articles.value,
-              ...data.allArticles.edges.map((edge) => edge.node),
-            ];
-
-            // Update pagination state
-            hasNextPage.value = data.allArticles.pageInfo.hasNextPage;
-            endCursor.value = data.allArticles.pageInfo.endCursor;
-          }
-        } catch (err) {
-          console.error("Error fetching more articles:", err);
-        }
-      }
-    };
-
-
-
+    // Use the pagination composable
+    const { items: articles, hasNextPage, loadMore } = usePagination(result, fetchMore);
 
     return { articles, loading, error, loadMore, hasNextPage };
-    },
+  },
 };
 </script>
