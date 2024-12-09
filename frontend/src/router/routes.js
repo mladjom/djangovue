@@ -6,6 +6,7 @@ import BlogView from "@/views/BlogView.vue";
 import ContactView from "@/views/ContactView.vue";
 import ArticleView from "@/views/ArticleView.vue"; // Import the single article view
 import CategoriesView from "@/views/CategoriesView.vue";
+import CategoryPageView from "@/views/CategoryPageView.vue";
 
 export const routes = [
   {
@@ -26,9 +27,15 @@ export const routes = [
         path: "/categories",
         name: "categories",
         component: CategoriesView,
-        meta: { breadcrumb: "Categories", title: "Categories",
+        meta: { breadcrumb: "Categories", title: "Categories Title",
           description: "Description Categories"
          },
+      },
+      {
+        path: '/categories/:slug',
+        name: 'CategoryPage',
+        component: CategoryPageView,
+        meta: { title: 'Category' },
       },
       {
         path: "about",

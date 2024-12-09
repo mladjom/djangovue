@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,12 +48,13 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # Handles language selection
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+    ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",  # Vite's development server
@@ -117,7 +119,24 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = [
+    ('en', _('English')),  # Default
+    ('sv', _('Swedish')),  # Swedish
+    ('sr-Latn', _('Serbian Latin')),
+    ('sr-Cyrl', _('Serbian Cyrillic')),
+]
+LANGUAGE_CODE = 'sv'
+
+# Path to translation files
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',  # Directory for translations
+]
+
+UNFOLD = {
+    "SHOW_LANGUAGES": True,
+}
+
 
 TIME_ZONE = 'UTC'
 

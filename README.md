@@ -3,7 +3,7 @@
 
 
 ## What is it about?
-
+Under development. Not to be used.
 
 
 ### Setup
@@ -40,8 +40,8 @@ python manage.py runserver
 
 ```bash
 # Usefull commands
-
-
+django-admin makemessages -l <language_code>
+django-admin compilemessages -l <language_code>
 
 
 # Install Vue dependencies
