@@ -34,7 +34,7 @@ python manage.py seed_data
 
 ```bash
 # Run development server
-python manage.py runserver
+./manage.py runserver
 
 
 

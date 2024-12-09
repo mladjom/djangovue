@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+
+{% block nav-global %}
+  {{ block.super }}
+  {% include "admin/language_switch.html" %}
+{% endblock %}
+
+
+{% block title %}My Custom Admin{% endblock %}
+
+{% block content %}
+    <h1>Welcome to My Custom Admin</h1>
+    {{ block.super }}
+{% endblock %}

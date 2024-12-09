@@ -41,7 +41,7 @@ class TagAdmin(admin.ModelAdmin):
 
     article_count.admin_order_field = 'article_count'
 
-    article_count.short_description = 'Number of Articles'
+    article_count.short_description = _('Articles')
 
 class TagInline(admin.TabularInline):
     model = Article.tags.through  # Inline Many-to-Many relation for tags

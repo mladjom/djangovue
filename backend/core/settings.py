@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
+from django.contrib import admin
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",  # Vite's development server
@@ -70,6 +74,7 @@ GRAPHENE = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],  # Include the custom templates directoryI
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -82,6 +87,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
@@ -121,22 +127,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 LANGUAGES = [
-    ('en', _('English')),  # Default
-    ('sv', _('Swedish')),  # Swedish
-    ('sr-Latn', _('Serbian Latin')),
-    ('sr-Cyrl', _('Serbian Cyrillic')),
+    ('sv', _('Swedish')), 
+    ('en', _('English')), 
+    ('rs', _('Serbian')),  
 ]
-LANGUAGE_CODE = 'sv'
+LANGUAGE_CODE = 'en'
 
 # Path to translation files
 LOCALE_PATHS = [
     BASE_DIR / 'locale',  # Directory for translations
 ]
-
-UNFOLD = {
-    "SHOW_LANGUAGES": True,
-}
-
 
 TIME_ZONE = 'UTC'
 
@@ -154,3 +154,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
