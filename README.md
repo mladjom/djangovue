@@ -27,10 +27,10 @@ cd backend
 pip -r requirements.txt
 
 ```bash
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py seed_data
+./manage.py makemigrations
+./manage.py migrate
+./manage.py createsuperuser
+./manage.py seed_data
 
 ```bash
 # Run development server
