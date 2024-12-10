@@ -40,7 +40,7 @@ python manage.py seed_data
 
 ```bash
 # Usefull commands
-django-admin makemessages -l <language_code>
+django-admin makemessages -l <language_code> --ignore=templates/*
 django-admin compilemessages -l <language_code>
 
 

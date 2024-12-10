@@ -29,6 +29,9 @@ SECRET_KEY = 'django-insecure-)&0%+u6y(g9f7i4jh1ymmstpl)e=h*qu@e2gxjha+o6n)15i7^
 DEBUG = True
 
 ALLOWED_HOSTS = []
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 
 # Application definition
@@ -41,9 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'django_quill',
     'graphene_django',
     'corsheaders',
+    'debug_toolbar',
 ]
 
 
@@ -57,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     ]
 
 
@@ -75,7 +79,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / 'templates'],  # Include the custom templates directoryI
-        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,6 +86,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -125,11 +129,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
+LANGUAGE_CODE = "en"
+TIME_ZONE = 'Europe/Stockholm'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
 
 LANGUAGES = [
-    ('sv', _('Swedish')), 
     ('en', _('English')), 
-    ('rs', _('Serbian')),  
+    ('sv', _('Swedish')), 
+    ('sr', _('Serbian')),  
 ]
 LANGUAGE_CODE = 'en'
 
@@ -137,12 +146,6 @@ LANGUAGE_CODE = 'en'
 LOCALE_PATHS = [
     BASE_DIR / 'locale',  # Directory for translations
 ]
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

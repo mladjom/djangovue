@@ -1,3 +1,4 @@
+{% load i18n %}
 <form method="post" action="{% url 'set_language' %}" style="display: inline;">
     {% csrf_token %}
     <select name="language" onchange="this.form.submit()">

@@ -8,84 +8,89 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-10 03:25+0100\n"
+"POT-Creation-Date: 2024-12-10 04:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: FULL NAME <MLADEN@MILENTIJEVIC.COM>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: sv\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: blog/admin.py:27 blog/admin.py:44 blog/models.py:54
 msgid "Articles"
-msgstr "Artiklar"
+msgstr "Чланци"
+
+#: blog/apps.py:7
+msgid "Blog"
+msgstr "Блог"
 
 #: blog/models.py:8 blog/models.py:25
 msgid "Name"
-msgstr "Namn"
+msgstr "Назив"
 
 #: blog/models.py:9 blog/models.py:26
 msgid "Description"
-msgstr "Beskrivning"
+msgstr "Опис"
 
 #: blog/models.py:10 blog/models.py:27 blog/models.py:44
 msgid "Slug"
-msgstr "Slug"
+msgstr "Прилагођени URL"
 
 #: blog/models.py:13 blog/models.py:45
 msgid "Category"
-msgstr "Kategori"
+msgstr "Категорија"
 
 #: blog/models.py:14
 msgid "Categories"
-msgstr "Kategorier"
+msgstr "Категорије"
 
 #: blog/models.py:30
 msgid "Tag"
-msgstr "Tagg"
+msgstr "Таг"
 
 #: blog/models.py:31 blog/models.py:46
 msgid "Tags"
-msgstr "Taggar"
+msgstr "Тагови"
 
 #: blog/models.py:42
 msgid "Title"
-msgstr "Titel"
+msgstr "Наслов"
 
 #: blog/models.py:43
 msgid "Content"
-msgstr "Innehåll"
+msgstr "Садржај"
 
 #: blog/models.py:47
 msgid "Is Published"
-msgstr "Är publicerad"
+msgstr "Да ли је објављено"
 
 #: blog/models.py:48
 msgid "Is Featured"
-msgstr "Är utvald"
+msgstr "Да ли је истакнуто"
 
 #: blog/models.py:49
 msgid "Created At"
-msgstr "Skapad"
+msgstr "Креирано у"
 
 #: blog/models.py:50
 msgid "Modified At"
-msgstr "Ändrad"
+msgstr "Измењено у"
 
 #: blog/models.py:53
 msgid "Article"
-msgstr "Artikel"
+msgstr "Чланак"
 
 #: core/settings.py:139
 msgid "English"
-msgstr "Engelska"
+msgstr "Енглески"
 
 #: core/settings.py:140
 msgid "Swedish"
-msgstr "Svenska"
+msgstr "Шведски"
 
 #: core/settings.py:141
 msgid "Serbian"
-msgstr "Serbiska"
+msgstr "Српски"

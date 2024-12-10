@@ -10,8 +10,8 @@ class Category(models.Model):
     slug = models.SlugField(max_length=255, unique=True, verbose_name=_('Slug'))
 
     class Meta:
-        verbose_name = _('Category')  # Translated singular name
-        verbose_name_plural = _('Categories')  # Translated plural name
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -25,6 +25,10 @@ class Tag(models.Model):
     name = models.CharField(max_length=255, unique=True, verbose_name=_('Name'))
     description = models.TextField(blank=True, null=True, verbose_name=_('Description'))
     slug = models.SlugField(max_length=255, unique=True, verbose_name=_('Slug'))
+
+    class Meta:
+        verbose_name = _('Tag')
+        verbose_name_plural = _('Tags')
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -44,6 +48,10 @@ class Article(models.Model):
     is_featured = models.BooleanField(default=False, verbose_name=_('Is Featured'))
     created_at = models.DateTimeField(default=now, verbose_name=_('Created At'))
     modified_at = models.DateTimeField(auto_now=True, verbose_name=_('Modified At'))
+
+    class Meta:
+        verbose_name = _('Article')
+        verbose_name_plural = _('Articles')
 
     def save(self, *args, **kwargs):
         if not self.slug:
