@@ -1,6 +1,7 @@
 import pytest
 from blog.models import Category
-
+from django.utils.text import slugify
+from django.conf import settings
 
 @pytest.mark.django_db
 def test_create_category():
@@ -33,3 +34,9 @@ def test_category_ordering():
     Category.objects.create(name="Apple")
     categories = list(Category.objects.all())
     assert [cat.name for cat in categories] == ["Apple", "Zebra"]
+
+@pytest.mark.django_db
+def test_category_slug_generation():
+    category = Category.objects.create(name="Test Category")
+    assert category.slug == slugify(category.name)
+

@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
-from blog.models.tag import Tag
-from blog.models.article import Article
-from .mixins import ArticleCountMixin
+from blog.models.tag_model import Tag
+from blog.models.article_model import Article
+from .mixins_admin import ArticleCountMixin
 
 @admin.register(Tag)
 class TagAdmin( ArticleCountMixin, admin.ModelAdmin):

@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-from .category import Category
-from .tag import Tag
+from .category_model import Category
+from .tag_model import Tag
 
 
 class Article(models.Model):

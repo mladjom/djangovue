@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from datetime import datetime
 from django.conf import settings
-from blog.utils.image import resize_and_compress_image
+from blog.utils.image_utils import resize_and_compress_image
 
 def category_image_upload_path(instance, filename):
     """
@@ -56,7 +56,16 @@ class Category(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
 
-        super().save(*args, **kwargs)
+        # Check if the image is being replaced
+        if self.pk:
+            old_category = Category.objects.get(pk=self.pk)
+            if old_category.featured_image != self.featured_image:
+                # Delete the old image if it's being replaced
+                if old_category.featured_image:
+                    try:
+                        os.remove(old_category.featured_image.path)
+                    except FileNotFoundError:
+                        pass  # If the file doesn't exist, just skip it
 
         # Process the featured image if it exists
         if self.featured_image:
@@ -67,14 +76,27 @@ class Category(models.Model):
             new_filename = f"{slugify(self.name)}.{extension}"
             new_image_path = os.path.join(os.path.dirname(original_image_path), new_filename)
 
-            # Resize and compress image
+            # Resize and compress the image
             resize_and_compress_image(original_image_path, new_image_path)
 
             # Update the featured_image field with the new file path
             self.featured_image.name = os.path.relpath(new_image_path, settings.MEDIA_ROOT)
 
-            # Save the changes
-            super().save(*args, **kwargs)
+        # Save the category instance
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+    # Delete the image when the category is deleted
+        if self.featured_image:
+            image_path = self.featured_image.storage.path(self.featured_image.name)
+            print(f"Processing image: {image_path}")
+            if os.path.exists(image_path):
+                try:
+                    os.remove(image_path)
+                except Exception as e:
+                    print(f"Error deleting image {image_path}: {e}")
+
+        super().delete(*args, **kwargs)  # Proceed with the deletion of the model
 
     def __str__(self):
         return self.name

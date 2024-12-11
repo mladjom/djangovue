@@ -1,6 +1,5 @@
 # utils/image_utils.py
 
-import os
 from PIL import Image
 from django.conf import settings
 

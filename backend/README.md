@@ -3,7 +3,7 @@
 
 
 ## What is it about?
-Under development. Not to be used.
+ Djangovue, is a project under development combining Django, Vue, and GraphQL to build a blog. It includes both a backend (Django) and frontend (Vue),
 
 
 ### Setup

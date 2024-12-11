@@ -1,8 +1,9 @@
+# blog/admin/category_admin.py
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
-from blog.models.category import Category
-from .mixins import ArticleCountMixin
+from blog.models.category_model import Category
+from .mixins_admin import ArticleCountMixin
 
 @admin.register(Category)
 class CategoryAdmin(ArticleCountMixin, admin.ModelAdmin):
@@ -19,9 +20,6 @@ class CategoryAdmin(ArticleCountMixin, admin.ModelAdmin):
             'fields': ('featured_image', 'featured_image_thumbnail'),
             'description': _('Upload an image with a maximum size of 800x800 pixels. The image will be resized and compressed automatically.')
         }),
-        # (_('Timestamps'), {
-        #     'fields': ('created_at', 'updated_at'),
-        # }),
     )
     
     def featured_image_thumbnail(self, obj):

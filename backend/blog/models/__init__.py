@@ -1,3 +1,3 @@
-from .category import Category
-from .tag import Tag
-from .article import Article
+from .category_model import Category
+from .tag_model import Tag
+from .article_model import Article
