@@ -86,17 +86,26 @@ class Category(models.Model):
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-    # Delete the image when the category is deleted
-        if self.featured_image:
-            image_path = self.featured_image.storage.path(self.featured_image.name)
-            print(f"Processing image: {image_path}")
+        # Retrieve the full instance from the database
+        category = Category.objects.get(pk=self.pk)
+
+        # Check if there's a featured_image
+        if category.featured_image:
+            print(category.featured_image)
+            # Get the full path to the image
+            image_path = os.path.join(settings.MEDIA_ROOT, str(category.featured_image))
+
             if os.path.exists(image_path):
                 try:
-                    os.remove(image_path)
+                    os.remove(image_path)  # Delete the image file
+                    print(f"Deleted image: {image_path}")
                 except Exception as e:
                     print(f"Error deleting image {image_path}: {e}")
+            else:
+                print(f"Image not found: {image_path}")
 
-        super().delete(*args, **kwargs)  # Proceed with the deletion of the model
-
+        # Call the parent delete method to delete the database record
+        super().delete(*args, **kwargs)
+            
     def __str__(self):
         return self.name
