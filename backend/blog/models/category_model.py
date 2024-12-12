@@ -52,15 +52,10 @@ class Category(models.Model):
         ordering = ['name']
 
     def save(self, *args, **kwargs):
-        is_new_instance = self.pk is None  # Check if this is a new instance
         
         # Auto-generate slug if not provided
         if not self.slug:
             self.slug = slugify(self.name)
-
-        # Save the instance first to ensure `self.featured_image` is accessible
-        if is_new_instance:
-            super().save(*args, **kwargs)  # Save instance to use upload_to logic
 
         if self.pk is None or not self.featured_image.storage.exists(self.featured_image.name):
             # New instance or new image: Let the storage backend handle the initial upload
