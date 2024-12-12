@@ -5,9 +5,6 @@ from django.utils.translation import gettext_lazy as _
 from datetime import datetime
 from django.conf import settings
 from blog.utils.image_utils import resize_and_compress_image
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from PIL import Image
-from io import BytesIO
 
 def category_image_upload_path(instance, filename):
 
@@ -16,35 +13,12 @@ def category_image_upload_path(instance, filename):
 
 
 class Category(models.Model):
-    name = models.CharField(
-        max_length=255,
-        unique=True,
-        verbose_name=_('Name')
-    )
-    description = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name=_('Description')
-    )
-    slug = models.SlugField(
-        max_length=255,
-        unique=True,
-        verbose_name=_('Slug'),
-    )
-    featured_image = models.ImageField(
-        _('Featured Image'),
-        upload_to=category_image_upload_path,
-        blank=True,
-        null=True
-    )
-    created_at = models.DateTimeField(
-        _('Created At'),
-        auto_now_add=True
-    )
-    updated_at = models.DateTimeField(
-        _('Updated At'),
-        auto_now=True
-    )
+    name = models.CharField( max_length=255, unique=True, verbose_name=_('Name') )
+    description = models.TextField( blank=True, null=True, verbose_name=_('Description') )
+    slug = models.SlugField( max_length=255, unique=True, verbose_name=_('Slug'), )
+    featured_image = models.ImageField( _('Featured Image'), upload_to=category_image_upload_path, blank=True, null=True )
+    created_at = models.DateTimeField( _('Created At'), auto_now_add=True )
+    updated_at = models.DateTimeField( _('Updated At'), auto_now=True )
 
     class Meta:
         verbose_name = _('Category')
