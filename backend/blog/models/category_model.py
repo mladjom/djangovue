@@ -71,14 +71,14 @@ class Category(models.Model):
         if self.featured_image:
             original_image_path = self.featured_image.path
             extension = 'webp'
-
+            new_image_path = category_image_upload_path(self, self.featured_image.name)
+            
             # Generate the new filename based on the category name
             new_filename = f"{slugify(self.name)}.{extension}"
             new_image_path = os.path.join(os.path.dirname(original_image_path), new_filename)
 
-            # Resize and compress the image
-            resize_and_compress_image(original_image_path, new_image_path)
-
+            resize_and_compress_image(original_image_path, os.path.join(settings.MEDIA_ROOT, new_image_path))
+        
             # Update the featured_image field with the new file path
             self.featured_image.name = os.path.relpath(new_image_path, settings.MEDIA_ROOT)
 
@@ -88,7 +88,7 @@ class Category(models.Model):
     def delete(self, *args, **kwargs):
         # Retrieve the full instance from the database
         category = Category.objects.get(pk=self.pk)
-
+        print(category)
         # Check if there's a featured_image
         if category.featured_image:
             print(category.featured_image)

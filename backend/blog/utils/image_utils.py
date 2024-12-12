@@ -4,15 +4,8 @@ from PIL import Image
 from django.conf import settings
 
 def resize_and_compress_image(image_path, new_image_path, max_size=(800, 800), quality=85):
-    """
-    Resizes, compresses, renames, and converts an image to WebP format.
-
-    Args:
-        image_path (str): Path to the original image file.
-        new_image_path (str): Path where the new image will be saved.
-        max_size (tuple): Maximum dimensions for resizing (width, height).
-        quality (int): Quality for compression (1-100).
-    """
+    print(f"Image path: {image_path}")
+    print(f"New image path: {new_image_path}")
     try:
         print(f"Processing image: {image_path}")  # Debug print
 
