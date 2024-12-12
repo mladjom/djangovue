@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
 from blog.models.category_model import Category
 from .mixins_admin import ArticleCountMixin
+import os
 
 @admin.register(Category)
 class CategoryAdmin(ArticleCountMixin, admin.ModelAdmin):
@@ -30,3 +31,18 @@ class CategoryAdmin(ArticleCountMixin, admin.ModelAdmin):
 
     featured_image_thumbnail.short_description = _('Thumbnail')
     
+    
+    def delete_queryset(self, request, queryset):
+        """
+        Overriding delete_queryset to remove associated images for selected categories.
+        """
+        for category in queryset:
+            if category.featured_image:
+                image_path = category.featured_image.path
+                if os.path.exists(image_path):
+                    try:
+                        os.remove(image_path)  # Delete the image file
+                    except Exception as e:
+                        self.message_user(request, f"Error deleting image for {category.name}: {e}", level="error")
+        # Call the default delete action
+        queryset.delete()
