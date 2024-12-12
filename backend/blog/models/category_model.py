@@ -5,12 +5,12 @@ from django.utils.translation import gettext_lazy as _
 from datetime import datetime
 from django.conf import settings
 from blog.utils.image_utils import resize_and_compress_image
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from PIL import Image
+from io import BytesIO
 
 def category_image_upload_path(instance, filename):
-    """
-    Generate a dynamic path for uploading category images.
-    Includes date for better file organization.
-    """
+
     today = datetime.now().strftime('%Y/%m/%d')  # Example: 2024/12/10
     return f'categories/{today}/{filename}'
 
@@ -52,9 +52,20 @@ class Category(models.Model):
         ordering = ['name']
 
     def save(self, *args, **kwargs):
+        is_new_instance = self.pk is None  # Check if this is a new instance
+        
         # Auto-generate slug if not provided
         if not self.slug:
             self.slug = slugify(self.name)
+
+        # Save the instance first to ensure `self.featured_image` is accessible
+        if is_new_instance:
+            super().save(*args, **kwargs)  # Save instance to use upload_to logic
+
+        if self.pk is None or not self.featured_image.storage.exists(self.featured_image.name):
+            # New instance or new image: Let the storage backend handle the initial upload
+            super().save(*args, **kwargs)
+
 
         # Check if the image is being replaced
         if self.pk:
@@ -67,21 +78,34 @@ class Category(models.Model):
                     except FileNotFoundError:
                         pass  # If the file doesn't exist, just skip it
 
-        # Process the featured image if it exists
+        
         if self.featured_image:
+                       
             original_image_path = self.featured_image.path
-            extension = 'webp'
-            new_image_path = category_image_upload_path(self, self.featured_image.name)
+            print(f"Original Image path: {original_image_path}")
             
             # Generate the new filename based on the category name
-            new_filename = f"{slugify(self.name)}.{extension}"
+            new_filename = f"{slugify(self.name)}.webp"
+            print(f"New filenames: {new_filename}")
+            
             new_image_path = os.path.join(os.path.dirname(original_image_path), new_filename)
-
-            resize_and_compress_image(original_image_path, os.path.join(settings.MEDIA_ROOT, new_image_path))
+            print(f"NEW New Image path: {new_image_path}")
+            
+            print(f"Resizing Original: {original_image_path}")
+            print(f"Resizing New: {os.path.join(settings.MEDIA_ROOT, new_image_path)}")
+            resize_and_compress_image(
+                original_image_path, os.path.join(settings.MEDIA_ROOT, 
+                new_image_path)
+                )
         
-            # Update the featured_image field with the new file path
-            self.featured_image.name = os.path.relpath(new_image_path, settings.MEDIA_ROOT)
-
+            # Remove the original image after processing
+            if original_image_path != new_image_path and os.path.exists(original_image_path):
+                os.remove(original_image_path)
+                
+        
+            self.featured_image.name = os.path.relpath(new_image_path, settings.MEDIA_ROOT) 
+            
+            
         # Save the category instance
         super().save(*args, **kwargs)
 
