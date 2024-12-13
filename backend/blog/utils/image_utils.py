@@ -1,5 +1,5 @@
 # utils/image_utils.py
-
+from datetime import datetime
 from PIL import Image
 from django.conf import settings
 
@@ -30,3 +30,12 @@ def resize_and_compress_image(image_path, new_image_path, max_size=(800, 800), q
 
     except Exception as e:
         print(f"Error processing image {image_path}: {e}")
+
+
+def image_upload_path(instance, filename):
+    """
+    Generate a dynamic path for uploading images based on the model name and current date.
+    """
+    today = datetime.now().strftime('%Y/%m/%d')
+    model_name = instance.__class__.__name__.lower()  # Use the model name dynamically
+    return f'{model_name}s/{today}/{filename}'
