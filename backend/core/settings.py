@@ -5,8 +5,6 @@ import os
 import os
 from dotenv import load_dotenv
 
-
-
 load_dotenv()  # Load environment variables
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -24,7 +22,7 @@ SECRET_KEY = 'django-insecure-)&0%+u6y(g9f7i4jh1ymmstpl)e=h*qu@e2gxjha+o6n)15i7^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
@@ -144,16 +142,18 @@ LOCALE_PATHS = [
     BASE_DIR / 'locale',  # Directory for translations
 ]
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # This tells Django where to find static files
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-

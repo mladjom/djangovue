@@ -23,6 +23,7 @@ sitemaps = {
     'articles': ArticleSitemap,
 }
 
+# Core URL patterns
 urlpatterns = [
     path('categories/', CategoryListView.as_view(), name='categories-list'),
     path('tags/', TagListView.as_view(), name='tag-list'),
@@ -35,16 +36,18 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
 ]
 
-# Only add language prefix to admin URL pattern, not the whole urlpatterns
+# Add admin URLs with language prefix
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
 )
 
+# Debug-specific URLs
 if settings.DEBUG:
     import debug_toolbar
-    urlpatterns = [
+    urlpatterns += [
         path('__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
-    
-if settings.DEBUG:
+    ]
+    # Serve static files during development
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+    # Serve media files during development
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
