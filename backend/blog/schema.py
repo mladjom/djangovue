@@ -7,29 +7,42 @@ from .models import Category, Tag, Article
 class CategoryType(DjangoObjectType):
     class Meta:
         model = Category
-        fields = ("id", "name", "description", "slug")  # Expose these fields
+        fields = ('id', 'name', 'description', 'slug')  # Expose these fields
 
 
 class TagType(DjangoObjectType):
     class Meta:
         model = Tag
-        fields = ("id", "name", "description", "slug")
+        fields = ('id', 'name', 'description', 'slug', 'meta_title', 'meta_description', 'featured_image')
+
+class Query(graphene.ObjectType):
+    all_tags = graphene.List(TagType)
+    tag_by_slug = graphene.Field(TagType, slug=graphene.String(required=True))
+
+    def resolve_all_tags(root, info):
+        return Tag.objects.all()
+
+    def resolve_tag_by_slug(root, info, slug):
+        try:
+            return Tag.objects.get(slug=slug)
+        except Tag.DoesNotExist:
+            return None
 
 
 class ArticleType(DjangoObjectType):
     class Meta:
         model = Article
         fields = (
-            "id",
-            "title",
-            "content",
-            "slug",
-            "category",
-            "tags",
-            "is_published",
-            "is_featured",
-            "created_at",
-            "modified_at",
+            'id',
+            'title',
+            'content',
+            'slug',
+            'category',
+            'tags',
+            'is_published',
+            'is_featured',
+            'created_at',
+            'modified_at',
         )
 
 # Define a connection for Articles to enable pagination
@@ -63,7 +76,7 @@ class Query(graphene.ObjectType):
 
 
     def resolve_article_by_slug(root, info, slug):
-        print(f"Received slug: {slug}")  # Debugging
+        print(f'Received slug: {slug}')  # Debugging
         try:
             # Fetch the article based on the slug
             return Article.objects.get(slug=slug)

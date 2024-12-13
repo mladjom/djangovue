@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'corsheaders',
     'debug_toolbar',
+    'django.contrib.sitemaps',
 ]
 
 

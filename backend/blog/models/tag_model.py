@@ -4,17 +4,24 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from .featured_image_model import FeaturedImage
 import os
+from django.urls import reverse
 
 class Tag(FeaturedImage):
     name = models.CharField(max_length=255, unique=True, verbose_name=_('Name'))
     description = models.TextField(blank=True, null=True, verbose_name=_('Description'))
     slug = models.SlugField(max_length=255, unique=True, verbose_name=_('Slug'))
+    meta_title = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('Meta Title'))
+    meta_description = models.TextField(blank=True, null=True, verbose_name=_('Meta Description'))
     created_at = models.DateTimeField(_('Created At'), auto_now_add=True)
     updated_at = models.DateTimeField(_('Updated At'), auto_now=True)
     
     class Meta:
         verbose_name = _('Tag')
         verbose_name_plural = _('Tags')
+
+    # Add the `get_absolute_url` method
+    def get_absolute_url(self):
+        return reverse('tag-detail', args=[self.slug])
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -39,6 +46,19 @@ class Tag(FeaturedImage):
 
             # Save again to persist the updated `featured_image` path
             super().save(update_fields=['featured_image'])
+
+    @property
+    def seo_meta_title(self):
+        return self.meta_title or f"Explore Articles Tagged with {self.name}"
+
+    @property
+    def seo_meta_description(self):
+        return self.meta_description or f"Discover posts and articles related to {self.name}. Stay updated on trending topics and insights."
+
+    @property
+    def canonical_url(self):
+        return f"/tags/{self.slug}/"
+
 
     def delete(self, *args, **kwargs):
         """

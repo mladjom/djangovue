@@ -3,7 +3,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from .category_model import Category
 from .tag_model import Tag
-
+from django.urls import reverse
 
 class Article(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('Title'))
@@ -19,6 +19,11 @@ class Article(models.Model):
     class Meta:
         verbose_name = _('Article')
         verbose_name_plural = _('Articles')
+
+    # Add the `get_absolute_url` method
+    def get_absolute_url(self):
+        return reverse('article-detail', args=[self.slug])
+
 
     def save(self, *args, **kwargs):
         if not self.slug:

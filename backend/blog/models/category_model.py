@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from datetime import datetime
 from django.conf import settings
 from blog.utils.image_utils import resize_and_compress_image
+from django.urls import reverse
 
 def category_image_upload_path(instance, filename):
 
@@ -24,6 +25,11 @@ class Category(models.Model):
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
         ordering = ['name']
+
+    # Add the `get_absolute_url` method
+    def get_absolute_url(self):
+        return reverse('category-detail', args=[self.slug])
+
 
     def save(self, *args, **kwargs):
         
