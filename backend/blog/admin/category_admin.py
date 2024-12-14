@@ -8,7 +8,7 @@ import os
 
 @admin.register(Category)
 class CategoryAdmin(ArticleCountMixin, admin.ModelAdmin):
-    list_display = ('name', 'slug', 'created_at', 'updated_at', 'article_count', 'featured_image_thumbnail')  # Fields displayed in list view
+    list_display = ('name', 'id','slug', 'created_at', 'updated_at', 'article_count', 'featured_image_thumbnail')  # Fields displayed in list view
     search_fields = ('name', 'slug', 'description')
     prepopulated_fields = {'slug': ('name',)}  # Auto-generate slug from 'name'
     readonly_fields = ('featured_image_thumbnail',)  # For image preview in the form

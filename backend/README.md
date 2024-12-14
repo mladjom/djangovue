@@ -31,7 +31,7 @@ pip -r requirements.txt
 ./manage.py migrate
 ./manage.py createsuperuser
 ./manage.py seed_data
-
+python manage.py inspectdb
 ```bash
 # Run development server
 ./manage.py runserver
